@@ -1,16 +1,17 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import HomePage from '../pages/HomePage';
-import LoginPage from '../pages/LoginPage';
-
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import HomePage from "../pages/HomePage";
+import LoginPage from "../pages/LoginPage";
+import RecipeDetail from "../pages/RecipeDetail";
 
 const RouteMap = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage/>} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/recipe/:id" element={<RecipeDetail />} />
     </Routes>
   );
-}
+};
 
-export default RouteMap
+export default RouteMap;

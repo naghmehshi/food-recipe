@@ -11,8 +11,7 @@ interface RecipesType {
 }
 
 const RecipesList = () => {
-  // https://api.spoonacular.com/recipes/complexSearch?sort=time&apiKey=d4bcf2900d3a418fa6c99754d1827835
-  //https://api.spoonacular.com/recipes/random?number=5&apiKey=d4bcf2900d3a418fa6c99754d1827835
+
   const [recipes, setRecipes] = useState <RecipesType[]>([]);
   useEffect(() => {
     axios
@@ -23,16 +22,19 @@ const RecipesList = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center">
-      {recipes.map((item) => (
-        <RecipeCard
-          image={item.image}
-          title={item.title}
-          summary={item.summary}
-          pricePerServing={item.pricePerServing}
-          id={item.id}
-        />
-      ))}
+    <div className="container">
+      <h1 className="text-3xl my-8">New Recipes</h1>
+      <div className="flex flex-wrap justify-center">
+        {recipes.map((item) => (
+          <RecipeCard
+            image={item.image}
+            title={item.title}
+            summary={item.summary}
+            pricePerServing={item.pricePerServing}
+            id={item.id}
+          />
+        ))}
+      </div>
     </div>
   );
 };
