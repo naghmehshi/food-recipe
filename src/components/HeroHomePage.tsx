@@ -1,12 +1,16 @@
-import React from 'react'
-import SearchQuery from './SearchQuery';
+import React from "react";
+import SearchQuery from "./SearchQuery";
 
-const HeroHomePage = () => {
-  return (
-    <div className="hero-box mb-5 flex justify-center items-center ">
-      <SearchQuery />
-    </div>
-  );
+interface HeroHomePageProps {
+  onSearch: (query: string, number: number) => void;
 }
 
-export default HeroHomePage
+const HeroHomePage: React.FC<HeroHomePageProps> = ({ onSearch }) => {
+  return (
+    <div className="flex hero-box mb-5 flex justify-center items-center ">
+      <SearchQuery onSearch={onSearch} />
+    </div>
+  );
+};
+
+export default HeroHomePage;

@@ -22,7 +22,10 @@ const RecipeDetail = () => {
       )
       .then((res) => {
         if (res.data) {
-          setRecipe(res.data);
+          setRecipe({
+            ...res.data,
+            summary: res.data.summary.replace(/<[^>]+>/g, ""),
+          });
         }
       })
       .catch((error) => console.log(error));
@@ -31,16 +34,20 @@ const RecipeDetail = () => {
   return (
     <>
       {recipe.id ? (
-        <div className="flex">
-          <div>
-            <img className="w-full" src={recipe.image} alt="Detail" />
+        <div className="flex items-center justify-center">
+          <div className="w-1/2 pr-8">
+            <img
+              className="w-full rounded-lg"
+              src={recipe.image}
+              alt="Detail"
+            />
           </div>
-          <div>
-            <p className="text-gray-700 text-base">{recipe.summary}</p>
+          <div className="w-1/2 pl-8">
+            <p className="text-gray-700 text-lg">{recipe.summary}</p>
           </div>
         </div>
       ) : (
-        <h1>Recipe Not Found</h1>
+        <h1 className="text-center">Recipe Not Found</h1>
       )}
     </>
   );
