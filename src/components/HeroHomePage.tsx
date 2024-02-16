@@ -1,5 +1,5 @@
 import React from "react";
-import SearchQuery from "./SearchQuery";
+import SearchQuery from "./search/SearchQuery";
 
 interface HeroHomePageProps {
   onSearch: (query: string, number: number) => void;

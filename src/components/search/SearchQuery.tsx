@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import Input from "./form/Input";
-import axios from "axios";
-import RecipesList from "./recipes/RecipesList";
-import RecipesType from "../types/RecipesType";
+import Input from "../form/Input";
+
 
 interface SearchQueryProps {
   onSearch: (query: string, number: number) => void;
@@ -22,6 +20,8 @@ const SearchQuery: React.FC<SearchQueryProps> = ({ onSearch }) => {
     e.preventDefault();
     onSearch(formData.query, formData.number);
   };
+
+  
 
   return (
     <div>

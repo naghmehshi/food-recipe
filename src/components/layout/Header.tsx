@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -41,12 +42,11 @@ const Header = () => {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           <div className="relative">
-            <button
-              type="button"
+            <Link
+              to="/search"
               className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
-              aria-expanded="false"
-            >
-              Product
+              aria-expanded="false"           >
+              Search
               <svg
                 className="h-5 w-5 flex-none text-gray-400"
                 viewBox="0 0 20 20"
@@ -59,7 +59,7 @@ const Header = () => {
                   clip-rule="evenodd"
                 />
               </svg>
-            </button>
+            </Link>
 
             {/* <div className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
               <div className="p-4">
