@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import RecipesList from "../components/recipes/RecipesList";
 import HeroHomePage from "../components/HeroHomePage";
-import axios from "axios";
 import RecipesType from "../types/RecipesType";
 import MainLayout from "../components/layout/MainLayout";
-
+import { searchByNameService } from "../services/search";
+import { recipesRandomService } from "../services";
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [searchResults, setSearchResults] = useState<RecipesType[] | null>(
@@ -13,12 +13,22 @@ const HomePage = () => {
   const [title, setTitle] = useState("Recipes Search Results:");
 
   useEffect(() => {
-    axios
-      .get(
-        "https://api.spoonacular.com/recipes/random?number=9&apiKey=d4bcf2900d3a418fa6c99754d1827835"
-      )
-      .then((res) => setRecipes(res.data.recipes))
-      .catch((error) => console.error("Error fetching recipes:", error));
+    // recipesRandomService()
+    //   .then((data) => setRecipes(data.recipes))
+    //   .catch((error) => console.error("Error fetching recipes:", error));
+    
+    const getRandomRecipes= async()=>{
+       try {
+        const data = await recipesRandomService();
+        setRecipes(data.recipes);
+       } catch (error) {
+        console.error("Error fetching recipes:", error);
+       }
+    }
+    getRandomRecipes()
+
+    // const data = recipesRandomService();
+    // setRecipes(res.data.recipes);
   }, []);
 
   useEffect(() => {
@@ -32,11 +42,8 @@ const HomePage = () => {
   const searchHandler = async (query: string, number: number) => {
     try {
       if (query) {
-        const res = await axios.get(
-          `https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=${number}&apiKey=d4bcf2900d3a418fa6c99754d1827835`
-        );
-        const data = res.data.results;
-        setSearchResults(data);
+        const data = await searchByNameService(query, number);
+        setSearchResults(data.results);
         setTitle(`Recipes Search Results for ${number} ${query}:`);
       }
     } catch (error) {

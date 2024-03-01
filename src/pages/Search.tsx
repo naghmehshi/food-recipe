@@ -11,7 +11,7 @@ const Search = () => {
     null
   );
 
-  const searchHandler = async (ingredients: string, number: number) => {
+  const searchHandler = async (ingredients: string[], number: number) => {
     try {
       if (ingredients) {
         const res = await axios.get(
@@ -25,9 +25,12 @@ const Search = () => {
       console.error("Error fetching recipes:", error);
     }
   };
+
+  
   return (
     <MainLayout>
       <SearchByIngredients onSearch={searchHandler} />
+      <SearchByNutrients  />
       {searchResults && (
         <RecipesList title="Search By Ingredient" recipes={searchResults} />
       )}

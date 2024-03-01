@@ -2,42 +2,41 @@ import React, { useState } from "react";
 import Input from "../form/Input";
 
 interface SearchByIngredientsProps {
-  onSearch: (ingredients: string, number: number) => void;
-}
-
-// Define the type for the state object
-interface IngredientFormState {
-  ingredients: string[];
-  number: number;
-}
-
-interface SearchByIngredientsProps {
-  onSearch: (ingredients: string, number: number) => void;
+  onSearch: (ingredients: string[], number: number) => void;
 }
 
 const SearchByIngredients: React.FC<SearchByIngredientsProps> = ({
   onSearch,
 }) => {
-  const [ingredientForm, setIngredientForm] = useState<IngredientFormState>({
-    ingredients: ["", "", ""],
+  const [ingredientForm, setIngredientForm] = useState({
+    ingredients: [""],
     number: 0,
   });
 
-  const ingredientHandler = (value: string, index: number) =>
+  const ingredientHandler = (value: string, index: number) => {
+    const newIngredients = [...ingredientForm.ingredients];
+    newIngredients[index] = value;
     setIngredientForm({
       ...ingredientForm,
-      ingredients: ingredientForm.ingredients.map((ing, i) =>
-        i === index ? value : ing
-      ),
+      ingredients: newIngredients,
     });
+  };
+
+  const addIngredientField = () => {
+    setIngredientForm({
+      ...ingredientForm,
+      ingredients: [...ingredientForm.ingredients, ""],
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // const ingredients = ingredientForm.ingredients.filter(
-    //   (ing) => ing.trim() !== ""
-    // );
-    onSearch(ingredientForm.ingredients.toString(), ingredientForm.number);
+    const ingredients = ingredientForm.ingredients.filter(
+      (ing) => ing.trim() !== ""
+    );
+    if (ingredientForm.number) {
+      onSearch(ingredients, ingredientForm.number);
+    }
   };
 
   return (
@@ -76,6 +75,13 @@ const SearchByIngredients: React.FC<SearchByIngredientsProps> = ({
         <div className="flex justify-center items-center">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={addIngredientField}
+          >
+            Add Ingredient
+          </button>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4"
             type="submit"
           >
             Submit
